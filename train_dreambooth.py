@@ -837,7 +837,7 @@ def main():
                         subprocess.call('rm -r '+save_dir+'/text_encoder/*.*', shell=True)
                         subprocess.call('cp -f '+frz_dir +'/*.* '+ save_dir+'/text_encoder', shell=True)                     
                      chkpth=args.Session_dir+"/"+inst+".ckpt"
-                     subprocess.call('python /workspace/diffusers/scripts/convert_diffusers_to_original_stable_diffusion.py ' + save_dir + ' ' + chkpth + ' --half',shell=True)
+                     subprocess.call('python /workspace/diffusers/scripts/convert_diffusers_to_original_stable_diffusion.py --model_path ' + save_dir + ' --checkpoint_path ' + chkpth + ' --half',shell=True)
                      print("Done, resuming training ...[0m")   
                      i=i+args.save_n_steps
                         
