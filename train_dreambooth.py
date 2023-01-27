@@ -855,7 +855,7 @@ def main():
                         ims = []
                         for img_idx_ii in range(args.n_save_sample):
                             g_cuda = torch.Generator(device=accelerator.device).manual_seed(img_idx_ii)
-                            pipe = StableDiffusionPipeline.from_pretrained(save_dir, torch_dtype=torch.float16, scheduler=scheduler).to("cuda")
+                            pipe = StableDiffusionPipeline.from_pretrained(save_dir, torch_dtype=torch.float32, scheduler=scheduler).to("cuda")
                             image = pipe(args.save_sample_prompt, num_inference_steps=20, guidance_scale=7.5, generator=g_cuda).images[0]
                             image.save(os.path.join(sample_dir, f"{img_idx_ii}.png"))
                             ims.append(image)
@@ -939,7 +939,7 @@ def main():
 
       if args.save_sample_prompt is not None:
         save_dir = args.output_dir
-        pipe = StableDiffusionPipeline.from_pretrained(save_dir, torch_dtype=torch.float16).to("cuda")
+        pipe = StableDiffusionPipeline.from_pretrained(save_dir, torch_dtype=torch.float32).to("cuda")
         sample_dir = os.path.join(save_dir, "samples")
         os.makedirs(sample_dir, exist_ok=True)
         print(f'Generating samples for prompt: {args.save_sample_prompt}')
